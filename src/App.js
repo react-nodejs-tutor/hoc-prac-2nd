@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Layout from './Layout';
+import BlogPostForm from './BlogPostForm';
+import LoginForm from './LoginForm';
+import Output from './Output';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+	state = {
+		blogPost: null,
+		login: null
+	};
+
+	handleSubmitLogin = login => {
+		this.setState({
+			login
+		});
+	};
+
+	handleSubmitBlogPost = blogPost => {
+		this.setState({
+			blogPost
+		});
+	};
+
+	render() {
+		const { blogPost, login } = this.state;
+		return (
+			<Layout
+				login={<LoginForm onSubmit={this.handleSubmitLogin} />}
+				blogPost={<BlogPostForm onSubmit={this.handleSubmitBlogPost} />}
+				output={<Output blogPost={blogPost} login={login} />}
+			/>
+		);
+	}
 }
 
 export default App;
